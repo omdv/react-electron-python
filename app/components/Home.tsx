@@ -7,7 +7,12 @@ export default function Home() {
   return (
     <div className={styles.container} data-tid="container">
       <h2>Home</h2>
-      <Link to={routes.COUNTER}>to Counter</Link>
+      <Link to={routes.COUNTER}>
+        <div>to Counter</div>
+      </Link>
+      <Link to={routes.PYTHON}>
+        <div>to Python</div>
+      </Link>
     </div>
   );
 }
