@@ -1,34 +1,24 @@
 import {
-  pythonCounterType,
-  pythonActionType,
-  PYTHON_INCREMENT,
-  PYTHON_DECREMENT,
+  // Dispatch,
+  PythonCounterT,
+  PythonActionT,
   PYTHON_BACKEND_REQUEST,
   PYTHON_BACKEND_SUCCESS,
   PYTHON_BACKEND_FAILURE
 } from '../types';
 
-const initialState: pythonCounterType = {
+const initialState: PythonCounterT = {
   isFetching: false,
   value: 0,
-  error: false
+  error: false,
+  operator: 0
 };
 
 export default function pythonCounter(
   state = initialState,
-  action: pythonActionType
+  action: PythonActionT
 ) {
   switch (action.type) {
-    case PYTHON_INCREMENT:
-      return {
-        ...state,
-        value: state.value + 1
-      };
-    case PYTHON_DECREMENT:
-      return {
-        ...state,
-        value: state.value - 1
-      };
     case PYTHON_BACKEND_REQUEST:
       return {
         ...state,
@@ -40,13 +30,15 @@ export default function pythonCounter(
         ...state,
         isFetching: false,
         error: false,
-        value: action.payload
+        value: action.payload,
+        operator: 0
       };
     case PYTHON_BACKEND_FAILURE:
       return {
         ...state,
         isFetching: false,
-        error: true
+        error: true,
+        operator: 0
       };
     default:
       return state;

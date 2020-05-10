@@ -3,9 +3,9 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import PythonCounter from '../components/PythonCounter';
 import { pythonIncrement, pythonDecrement } from '../actions/pythonCounter';
-import { counterStateType } from '../types';
+import { CounterStateType } from '../types';
 
-function mapStateToProps(state: counterStateType) {
+function mapStateToProps(state: CounterStateType) {
   return {
     counter: state.pythonCounter
   };

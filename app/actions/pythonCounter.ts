@@ -1,27 +1,77 @@
-// import { Request } from 'zeromq';
+import { Request } from 'zeromq';
 import {
-  // Dispatch,
-  // GetState,
-  // StateType,
-  pythonActionType,
-  // PYTHON_REQUEST,
-  // PYTHON_SUCCESS,
-  // PYTHON_FAILURE,
-  // PYTHON_INCREMENT,
-  // PYTHON_DECREMENT,
-  // AppThunk,
-  PYTHON_INCREMENT,
-  PYTHON_DECREMENT
+  Dispatch,
+  GetState,
+  PythonCounterT,
+  PythonActionT,
+  ThunkDispatchT,
+  PYTHON_BACKEND_REQUEST,
+  PYTHON_BACKEND_SUCCESS,
+  PYTHON_BACKEND_FAILURE
 } from '../types';
 
-export function pythonIncrement(): pythonActionType {
+const ZEROMQ_CONNECTION_STRING = 'tcp://127.0.0.1:5678';
+
+export function pythonBackendRequest(): PythonActionT {
   return {
-    type: PYTHON_INCREMENT
+    type: PYTHON_BACKEND_REQUEST
   };
 }
 
-export function pythonDecrement(): pythonActionType {
+export function pythonBackendSuccess(v: number): PythonActionT {
   return {
-    type: PYTHON_DECREMENT
+    type: PYTHON_BACKEND_SUCCESS,
+    payload: v
   };
 }
+
+export function pythonBackendFailure(m: string): PythonActionT {
+  return {
+    type: PYTHON_BACKEND_FAILURE,
+    payload: m
+  };
+}
+
+// zeromq send-receive function
+async function zeromqMessages(m: PythonCounterT): Promise<number> {
+  const sock = new Request();
+  sock.connect(ZEROMQ_CONNECTION_STRING);
+  await sock.send(JSON.stringify(m));
+  const [result] = await sock.receive();
+  return JSON.parse(result.toString()).value;
+}
+
+// redux-thunk action for zeromq send-receive
+export const pythonCalc = (m: PythonCounterT) => async (dispatch: Dispatch) => {
+  dispatch(pythonBackendRequest());
+  return zeromqMessages(m).then(
+    r => dispatch(pythonBackendSuccess(r)),
+    e => dispatch(pythonBackendFailure(e.toString))
+  );
+};
+
+export const pythonIncrement = () => async (
+  dispatch: ThunkDispatchT,
+  getState: GetState
+) => {
+  // construct message object
+  const { pythonCounter } = getState();
+  const message = {
+    ...pythonCounter,
+    operator: 1
+  };
+  dispatch(pythonCalc(message));
+};
+
+export const pythonDecrement = () => async (
+  dispatch: ThunkDispatchT,
+  getState: GetState
+) => {
+  // construct message object
+  const { pythonCounter } = getState();
+  const message = {
+    ...pythonCounter,
+    operator: -1
+  };
+  dispatch(pythonCalc(message));
+};
