@@ -1,10 +1,8 @@
-<p>
-  <a href="https://github.com/electron-react-boilerplate/electron-react-boilerplate">Electron React Boilerplate</a> + Python backend via <a href="href="https://github.com/zeromq">zeroMQ</a>.
-</p>
+## Description
+
+[Electron React Boilerplate](https://github.com/electron-react-boilerplate/electron-react-boilerplate") + Python backend via [zeroMQ](https://github.com/zeromq).
 
 ![Demo](https://github.com/omdv/react-electron-python/blob/master/demo.gif)
-
-</div>
 
 ## Install
 
