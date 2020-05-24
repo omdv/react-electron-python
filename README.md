@@ -82,15 +82,15 @@ Next you need to map your reducers to your container (think of it as one UI page
 
 ### 4. Handling UI logic
 
-Visual part of UI is handled by components. After you mapped your reducers to containers you can use them inside React components to bind them to specific UI elements. [In this example](https://github.com/omdv/react-electron-python/blob/master/app/components/PythonCounter.tsx) we are binding two functions to two buttons, show the value of counter and also disable buttons when `isFetching` property of the state is `True`.
+Visual part of UI is handled by components. After you mapped your reducers to containers you can use them inside React components to bind them to specific UI elements. Similar to the comment on react-redux, spend some time to familiarize yourself with [React](https://reactjs.org/tutorial/tutorial.html) in general. [In this example](https://github.com/omdv/react-electron-python/blob/master/app/components/PythonCounter.tsx) we are binding two functions to two buttons, also bind the counter property of the state to the corresponding UI element. Also note how we disable buttons when `isFetching` property of the state is `True`, which is important to cover async behavior.
 
 ### 5. Python backend
 
-Python logic is placed in [backend folder](https://github.com/omdv/react-electron-python/blob/master/backend/python-backend-main.py). You can organize your project however you want, but if your chose to rename your main script to something other than `python-backend-main` you'll need to change few hard-coded references.
+Python logic is placed in [backend folder](https://github.com/omdv/react-electron-python/blob/master/backend/python-backend-main.py). You can organize your project in any way you want, but if your choose to rename your main script to something other than `python-backend-main` you'll need to change few hard-coded references, namely in the parts responsible for packaging the application.
 
-The Python part binds to the socket, creating an endpoint.
+The two required modules for Python are `pyzmq` and `PyInstaller`, as you can see in requirements.txt. ZeroMQ is a lightweight communication protocol. Python serves as a server, [binding to the socket](http://api.zeromq.org/2-1:zmq-bind), creating an endpoint.
 
-After receiving a message it attempts to parse it (assuming JSON) and perform the calculation. You can presumably use a logic of any complexity here as the connection is asynchronous and related UI elements are disabled during execution.
+After receiving a message it attempts to parse it (assuming JSON) and perform the calculation. You can presumably use a logic of any complexity here as the connection is asynchronous and related UI elements are disabled during execution. Needless to stay that you need to use the same state structure you defined in Step 1.
 
 In this example it is assumed that Python backend is stateless. The state is stored inside Electron React Redux store, so you need to organize your Python script logic appropriately.
 
