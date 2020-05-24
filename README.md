@@ -2,7 +2,7 @@
 
 [Electron React Boilerplate](https://github.com/electron-react-boilerplate/electron-react-boilerplate") + Python backend via [zeroMQ](https://github.com/zeromq).
 
-![Demo](https://github.com/omdv/react-electron-python/blob/master/demo.gif)
+![Demo](https://user-images.githubusercontent.com/4576131/82744740-56ed0e00-9d42-11ea-83e6-62adc281a641.gif)
 
 ## Install
 
