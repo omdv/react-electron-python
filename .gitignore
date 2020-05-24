@@ -30,6 +30,11 @@ node_modules
 # OSX
 .DS_Store
 
+# Python backend
+__pycache__/
+backend/**/
+*.spec
+
 # App packaged
 release
 app/main.prod.js

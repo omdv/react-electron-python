@@ -9,8 +9,7 @@ import {
   PYTHON_BACKEND_SUCCESS,
   PYTHON_BACKEND_FAILURE
 } from '../types';
-
-const ZEROMQ_CONNECTION_STRING = 'tcp://127.0.0.1:5678';
+import pythonConfig from '../constants/python.json';
 
 export function pythonBackendRequest(): PythonActionT {
   return {
@@ -35,7 +34,7 @@ export function pythonBackendFailure(m: string): PythonActionT {
 // zeromq send-receive function
 async function zeromqMessages(m: PythonCounterT): Promise<number> {
   const sock = new Request();
-  sock.connect(ZEROMQ_CONNECTION_STRING);
+  sock.connect(pythonConfig.connString);
   await sock.send(JSON.stringify(m));
   const [result] = await sock.receive();
   return JSON.parse(result.toString()).value;

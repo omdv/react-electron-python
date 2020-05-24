@@ -11,8 +11,10 @@
 import path from 'path';
 import { app, BrowserWindow } from 'electron';
 import { autoUpdater } from 'electron-updater';
+import { ChildProcess, spawn } from 'child_process';
 import log from 'electron-log';
 import MenuBuilder from './menu';
+import pythonConfig from './constants/python.json';
 
 export default class AppUpdater {
   constructor() {
@@ -94,6 +96,46 @@ const createWindow = async () => {
   // Remove this if your app does not use auto updates
   // eslint-disable-next-line
   new AppUpdater();
+
+  // Spawning python backend process
+
+  function exitHandler(child: ChildProcess) {
+    child.kill();
+  }
+
+  const isProduction = process.env.NODE_ENV === 'production';
+  const isDevelopment = process.env.NODE_ENV === 'development';
+
+  if (!isDevelopment && !pythonConfig.devUsePackaged) {
+    const root = process.cwd();
+
+    const binariesPath =
+      isProduction && app.isPackaged
+        ? path.join(
+            path.dirname(app.getAppPath()),
+            '..',
+            './Resources',
+            './bin'
+          )
+        : path.join(root, './resources', pythonConfig.execName);
+
+    const execPath = path.resolve(
+      path.join(binariesPath, `./${pythonConfig.execName}`)
+    );
+    const pythonProcess = spawn(execPath, [], {});
+
+    pythonProcess.on('error', function handler(e: Error) {
+      console.log(`Cannot spawn process. ${e}`);
+    });
+
+    // python event listeneres
+    process.stdin.resume();
+    process.on('exit', exitHandler.bind(null, pythonProcess));
+    process.on('SIGINT', exitHandler.bind(null, pythonProcess));
+    process.on('SIGUSR1', exitHandler.bind(null, pythonProcess));
+    process.on('SIGUSR2', exitHandler.bind(null, pythonProcess));
+    process.on('uncaughtException', exitHandler.bind(null, pythonProcess));
+  }
 };
 
 /**

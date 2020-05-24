@@ -26,5 +26,6 @@
     "test/**/__snapshots__": true,
     "yarn.lock": true,
     "*.{css,sass,scss}.d.ts": true
-  }
+  },
+  "python.pythonPath": "/usr/local/Caskroom/miniconda/base/envs/electron/bin/python"
 }

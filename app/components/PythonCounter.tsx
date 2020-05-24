@@ -2,10 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Counter.css';
 import routes from '../constants/routes.json';
-import { pythonCounterType } from '../types';
+import { PythonCounterT } from '../types';
 
 type Props = {
-  counter: pythonCounterType;
+  counter: PythonCounterT;
   pythonIncrement: () => void;
   pythonDecrement: () => void;
 };
@@ -27,6 +27,7 @@ export default function PythonCounter(props: Props) {
         <button
           className={styles.btn}
           onClick={pythonIncrement}
+          disabled={counter.isFetching}
           data-tclass="btn"
           type="button"
         >
@@ -35,6 +36,7 @@ export default function PythonCounter(props: Props) {
         <button
           className={styles.btn}
           onClick={pythonDecrement}
+          disabled={counter.isFetching}
           data-tclass="btn"
           type="button"
         >

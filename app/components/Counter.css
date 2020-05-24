@@ -31,6 +31,10 @@
   font-family: Arial, Helvetica, Helvetica Neue, sans-serif;
 }
 
+.inactive {
+  background-color: rgb(48, 47, 47);
+}
+
 .btn:hover {
   color: white;
   background-color: rgba(0, 0, 0, 0.5);

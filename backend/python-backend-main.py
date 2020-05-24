@@ -11,12 +11,12 @@ socket.bind(CONNECTION_STRING)
 while True:
     #  Wait for next request from client
     message = socket.recv()
-    print("Received operation: %s" % message)
+    print("State: %s" % message)
 
     try:
       message = json.loads(message)
       message["value"] = message["value"] + message["operator"]
-      time.sleep(5)
+      time.sleep(0)
       socket.send_json(message)
     except:
       message["error"] = "Failed to calculate"
