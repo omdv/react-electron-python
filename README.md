@@ -1,16 +1,8 @@
 <p>
-  <a href="https://github.com/electron-react-boilerplate/electron-react-boilerplate">Electron React Boilerplate</a> + Python backend via zeroMQ.
+  <a href="https://github.com/electron-react-boilerplate/electron-react-boilerplate">Electron React Boilerplate</a> + Python backend via <a href="href="https://github.com/zeromq">zeroMQ</a>.
 </p>
 
-<p>
-  Electron React Boilerplate uses <a href="https://electron.atom.io/">Electron</a>, <a href="https://facebook.github.io/react/">React</a>, <a href="https://github.com/reactjs/redux">Redux</a>, <a href="https://github.com/reactjs/react-router">React Router</a>, <a href="https://webpack.github.io/docs/">Webpack</a> and <a href="https://github.com/gaearon/react-hot-loader">React Hot Loader</a> for rapid application development (HMR).
-</p>
-
-<p>
-  + <a href="https://github.com/zeromq">ZeroMQ</a> to provide connection to Python backend.
-</p>
-
-![Demo](demo.gif)
+![Demo](https://github.com/omdv/react-electron-python/blob/master/demo.gif)
 
 </div>
 
