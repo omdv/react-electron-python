@@ -1,6 +1,6 @@
 ## Description
 
-[Electron React Boilerplate](https://github.com/electron-react-boilerplate/electron-react-boilerplate") + Python backend via [zeroMQ](https://github.com/zeromq).
+[Electron React Boilerplate](https://github.com/electron-react-boilerplate/electron-react-boilerplate) + Python backend via [zeroMQ](https://github.com/zeromq).
 
 ![Demo](https://user-images.githubusercontent.com/4576131/82744740-56ed0e00-9d42-11ea-83e6-62adc281a641.gif)
 
@@ -9,7 +9,7 @@
 First, clone the repo via git and install dependencies:
 
 ```bash
-git clone --depth 1 --single-branch https://github.com/electron-react-boilerplate/electron-react-boilerplate.git your-project-name
+git clone --depth 1 --single-branch https://github.com/omdv/react-electron-python.git your-project-name
 cd your-project-name
 yarn
 ```
@@ -17,7 +17,8 @@ yarn
 Second, create python environment with a tool of your choice (e.g. virtualenv, conda) and install dependencies:
 
 ```bash
-conda create -n electron python=3.7
+conda create -n your-environment python=3.7
+conda activate your-environment
 pip install -r requirements.txt
 ```
 
@@ -32,7 +33,7 @@ yarn dev
 Start the python backend in the separate window:
 
 ```bash
-conda activate electron
+conda activate your-environment
 python backend/python-backend-main.py
 ```
 
@@ -43,6 +44,7 @@ It is possible to use compiled python binary for development, change the `devUse
 To package application for the local platform:
 
 ```bash
+conda activate your-environment
 yarn package-python
 ```
 
